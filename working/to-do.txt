@@ -1,0 +1,103 @@
+To-do:
+
+For 0.6.2
+-Remove / overwrite with blank label if a building burns down
+
+
+
+
+For 0.7
+-add in some labels automatically (town center, first farm, first death (gravestone?), others?)
+-add "keep loss" event
+-make calamities occur on randomized or at least different turns
+-something about outlaws group size related to num_villages?
+	-currently 6 at normal
+	-want 7-8 at ~20 villages
+	-min ~4-5, or they won't make it through the animals
+- animal AI (random movement, make my own)
+
+
+- [check] fix red outlaws not burning villages (no capture event fired)
+- [check] make your keep have an overlay to distinguish it from others
+- [check] prevent leader from picking up relics (he's a coward)
+- [check] upgrade keep to stone
+- [check] limit outlaws attacking orc leaders (more AI fiddling)
+- [check] fix orc gets attacked disrupting goto (attack event?)
+- [check] return outlaws to leaders, have them [avoid] orc leaders rather than orc keeps
+
+For 0.8
+- accompanying winter calamities?
+	-add goblin/wolves in winter calamity (add to gryphons, maybe other)
+	-add yeti winter calamity
+-somehow avoid loyalist/necro collision (both can come from south)
+- more items
+- copy boars in from Borstep campaign
+
+- (fix) heal units in recall list 2 per turn
+- (fix) villages should heal/cure at start of new scenario
+- un-build (demolish existing buildings)
+- think about having fog only at night during the summer
+- Merchants?
+- mercenaries (dwarves, gryphon rider, knight) who stay and help you fight but cost money and disappear permanently if you tell them to stand down
+- fix recall list healing macro
+
+
+Final polishing - 0.8 - 1.0
+- workers cannot build after fighting (i.e. must have an attack left)
+
+- more incidental music, set music selections by season
+- would like more long, thin mountain ranges with some impassables to create chokepoints?
+- pine hills on temperature, not height
+- cave option for relics (several spaces wide)
+- Tutorial (polish)
+- outlaws should not appear too near orc camps
+- unit commentary
+- story boards - improve
+
+- improve building graphics (up to mediocre)
+- worker graphics, animations (fight)
+- embellishments?
+- all right-click icons
+- fix bridge directions
+- change hero's name on re-name (if possible)
+- balancing, balancing, balancing
+- no building/stream on signs, orc check before building their keep
+
+
+Working notes:
+
+Calamity list:
+1. Lich (so bad, there's only one)
+2. Gryphons + goblin marauders (wolf rider, pillager, direwolf, etc. in winter)
+3. "evil" loyalist army
+4. Group of saurians moves in + yetis in winter
+
+Some other calamity ideas:
+5. Dread bat infestation (evil!)
+6. Goblin tribe (many, many units)
+7. "Activation" of magical relic that spawns creatures: mud crawlers, fire guardians
+
+no possible calamity first summer
+	
+
+side list:
+1 - you
+2 - animals
+3 - outlaws (nice)
+4 - outlaws (mean)
+5 - orcs
+6 - Elves (and possibly wose), teamed w/ animals
+7 - necromancer / random ghosts & skellies
+8 - Calamity other than undead (i.e. Saurians, goblins, gryphons, and "loyalists" so far)
+9 - friendly (use goto for movement)
+
+team list:
+settlers (you, friendly eventually)
+animals_and_elves
+animals_and_undead
+outlaws (also elves)
+orcs
+calamity
+
+
+

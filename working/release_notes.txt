@@ -1,0 +1,89 @@
+# Release notes for Cities of the Frontier
+
+
+
+Version 0.6.1
+I should note that Easy and Hard modes are essentially un-tested.  I always play other campaigns on "Normal," so I don't have a good feel for how challenging the other modes should be: I just made some rough guesses in the various game parameters.  I like the "saving for winter" necessity that results from only getting 1 gold/village in autumn, but I bumped it back up to 2 for Easy difficulty.
+
+To Chrysophylax: the term "calamity" is perhaps a bit strong -- it's just what I use internally.  I just mean that some new enemies crop up in subsequent summers, often in _place_ of the existing orc raids.  I am trying to add some variety to the enemy mix.  I'm not sure what you mean about a possible bug in the outlaw code: the outlaws are weakened (they get lower level units) during the first 3 seasons, but don't continually grow in strength after that.  The idea was that outlaws are initially a major problem, but just an annoyance once your town is firmly established.
+
+Incidentally, if anyone is actually interested in making a "fork" of CotF, either to add more features or just change the difficulty settings around, I'm supportive and will give pointers about the code if you need them.  Just come up with a different campaign name.
+
+-elves and undead are no longer allied with one another
+-For those interested in creating a true metropolis, you now have the option to keep playing indefinitely after you win.
+
+
+
+Version 0.6.0
+-Now for BfW 1.11.X
+-"Calamities" now occur during the second summer (and all subsequent ones).  Currently 4 possible events, all involving new enemies.
+-[fixed] The outlaws now (usually) burn down villages.  This used to work but was broken sometime around version 0.2.
+-Removed some debug messages I accidentally left in 0.5.1
+-Many new possible magical artifacts, some existing ones tweaked a bit.  The most powerful artifacts still have drawbacks, but all are useful.
+-A number of major balance changes, mostly aimed at making all-out expansion a riskier tactic.  
+	-Farms are back to producing 1 gold/turn in Autumn (still 2/turn in Summer)
+	-Farms are now much more expensive (45 gold)
+	-Map generation tweaks: you are less likely to find one gigantic field to build on
+	-Animals now actively attack your town in the winter
+	-Probably a bunch of other minor stuff I forgot to write down
+	
+The balance is still not quite where I want it to be (the game is relatively easy once you make it through the first winter), but it's much better than it was.
+	
+Note: doesn't work on BfW 1.11.7 due to a map generator bug.  Upgrade to 1.11.8+
+
+
+Version 0.5.1
+-Fixed (I think) the "ghost building" bug noted by MRDNRA
+-Increased movement points with the "stoneskin" potion to 2
+-Fixed (I think) bug where magical items would occasionally not spawn or spawn at every hex on the left edge of the map
+-Limited the number and types of animals that can begin near (within a couple moves) of your units
+
+Version 0.5.0
+Note: this version will likely break any saved games you have.  It will give errors and/or (more likely) unpredictable behavior. Upgrade only if you are planning to start from the beginning.
+-Added randomly-selected magical items that appear at random locations on the map.  At the moment, there will be from 4 to 6 items on each map.  All of the items have positive effects, but a few also have negative ones.  My hope is that the items encourage players to explore the map a bit more.
+-Necromancers may also occasionally raid your town, looking for corpses.  This may occur in the summer, but is more likely in the fall.
+-Totally revamped Orc gold management.  Orcs now receive an initial gold amount partially dependent on the number of villages you have.  Their income increases as the seasons pass.  Also, orc units have no upkeep, so they will recruit a trickle of units even after the initial wave, making it more difficult to go orc-leader hunting.
+-Did some more fiddling with the outlaw AI that should almost always prevent them from attacking orc leaders.
+-Changed the way speaking [role]s are assigned -- you should now mostly hear from the same few units, unless they are killed.
+-[fixed] orc leaders *should* no longer be distracted by an attack on their way to building a castle, although this is somewhat difficult to test
+Known bugs:
+-Item dialogues don't all make sense if you move your leader onto the item
+
+
+Version 0.4.0
+-Added the ability to recruit Heavy Infantrymen and Mages by building the Armorer and Library, respectively. I may yet decide to allow Fencer recruiting as well, but have no current plans to add other buildings.
+-If you cut many forest hexes, there is now the possibiilty that you may be attacked by elves, who will appear at the western map border.  The likelihood and size of the elf band increases with the number of forest hexes removed.
+-Added a cute little fire graphic for when outlaws or orcs burn your buildings to the ground.
+-[internal] Switched 2x2 buildings to be overlays and to use the multi-hex tiling systems. This should make it easier for me to upgrade the art in the future, and to make the terrains look a bit less "hex-y".
+-[fixed] bridges can now be built on water hexes next to castles and encampments
+-You now lose if an enemy capable of burning your buildings (currently outlaws or orcs) occupy your keep. The tutorial previously claimed this, but I hadn't implemented it yet.
+-Adjusted the outlaw AI parameters in hopes of having them not target orc leaders so much, although I'm not sure it helped.
+
+
+Version 0.3.1
+-Fixed bugs giving you gold if sides other than you defeated orc leaders
+-Fixed bug in which the divert stream action having the text and cost of laying a road.
+-Reduced the turns required to divert a stream from 4 to 2 and to build a bridge from 4 to 3. 
+
+Version 0.3.0
+-Significant overhaul to both the construction "engine" and tutorial WML. You probably don't care about this, but please report any new bugs you might find.
+-You now receive a gold bonus (currently 300 gold, may change) for defeating one of the orc leaders.
+-Peasants can only level up into Spearmen or Bowmen if you can already recruit those units (i.e. have built the appropriate building). This makes some sense in terms of the campaign (hey, where'd that bow come from?). More importantly, I hope it will make the choice of whether or not to build a Bowyer more interesting.
+-Farms are now snow-covered in the winter. This makes road planning and construction more important, and movement much more difficult.
+-Slightly reduced cost for building stables to 30 gold.
+-Minor UI improvements.
+
+
+Version 0.2.0
+-Random map generation. This seems to *usually* give a reasonable map, but everyone once in a while you might get one that's nearly un-winnable.
+-Reduced the cost of both the Bowyer and the Stables to 40 and reduced build-times. Please post if you find building these useful. 
+-Eliminated random spawning of Blood Bats and Dread Bats. Until I have a chance make (or steal :-) some new low-level animal units, this means relatively more wolves.
+-Reduced the equilibrium number of animals a bit. This should make early exploring a bit more possible, and outlaw attacks slightly more predictable.
+-Slightly reduced the size of the outlaw bands
+-Edited several of the tutorial messages to be more explicit about my early-game recommendations
+-Fixed "Divert Stream" option not working
+-Added ability for Peasant Workers to upgrade encampments to stone (i.e. to castle)
+-Added some first-scenario "low gold" warnings
+
+Version 0.1.0
+-Initial version
