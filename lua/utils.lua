@@ -20,6 +20,11 @@ function wesnoth.wml_actions.save_map(cfg)
     t[y + b] = table.concat(r, ',')
   end
   local s = table.concat(t, '\n')
+  s = string.gsub(s, "1 ", "")
+  s = string.gsub(s, "Ke^Yk", "1 Ke^Yk")
+  s = string.gsub(s, "Kh^Yk", "1 Kh^Yk")
+  s = string.gsub(s, "Kea^Yk", "1 Kea^Yk")
+  s = string.gsub(s, "Kha^Yk", "1 Kha^Yk")
   local v = cfg.variable or helper.wml_error("save_map missing required variable= attribute.")
   wesnoth.set_variable(v, string.format("border_size=%d\nusage=map\n\n%s", b, s))
 end
@@ -27,8 +32,6 @@ end
 
 function wesnoth.wml_actions.load_map(cfg)
   local v = cfg.variable or helper.wml_error("load_map missing required variable= attribute.")
-  v = string.gsub(v, "Ke^Yk", "1 Ke^Yk", 1)
-  v = string.gsub(v, "Kh^Yk", "1 Kh^Yk", 1)
   wesnoth.fire("replace_map", { map = wesnoth.get_variable(v), expand = true, shrink = true })
 end
 
