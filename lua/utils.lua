@@ -27,6 +27,8 @@ end
 
 function wesnoth.wml_actions.load_map(cfg)
   local v = cfg.variable or helper.wml_error("load_map missing required variable= attribute.")
+  v = string.gsub(v, "Ke^Yk", "1 Ke^Yk", 1)
+  v = string.gsub(v, "Kh^Yk", "1 Kh^Yk", 1)
   wesnoth.fire("replace_map", { map = wesnoth.get_variable(v), expand = true, shrink = true })
 end
 
