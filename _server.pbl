@@ -4,5 +4,9 @@ icon="scenery/windmill-11.png"
 version="0.6.1"
 author="esci"
 passphrase="echo sierra charlie india"
-description="Settle a new town north of the Great River. This campaign is more focused on gold management, strategic construction, and city defense compared to mainline campaigns."
+description="Settle a new town north of the Great River.
+
+A city-building Wesnoth campaign, requiring you to balance the building of new villages against the need to defend them.
+
+This campaign is more focused on gold management, strategic construction, and city defenses."
 email="arhoskinson@verizon.net"
