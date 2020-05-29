@@ -21,7 +21,7 @@ function wesnoth.micro_ais.wf_loiter_guardian(cfg)
 	local optional_keys = { "id", "[filter]" }
 	local CA_parms = {
 		ai_id = 'mai_wf_loiter_guardian',
-		{ ca_id = 'move', location = '~add-ons/Wild_Frontiers/ai/ca_wf_loiter_guardian.lua', score = cfg.ca_score or 100100 }
+		{ ca_id = 'move', location = '~add-ons/Wild_Frontiers/ai/ca_wf_loiter_guardian.lua', score = cfg.ca_score or 99900 }
 	}
     return required_keys, optional_keys, CA_parms
 end
