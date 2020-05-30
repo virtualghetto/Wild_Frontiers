@@ -87,29 +87,31 @@ function ca_wf_zone_guardian:execution(cfg)
         local newpos = nil
 
 	if (guardian.hitpoints < guardian.max_hitpoints) then
-                local close_villages = (wesnoth.get_villages {
+                local villages = (wesnoth.get_villages {
                     { "and", {
                     x = guardian.x,
                     y = guardian.y,
                     radius = guardian.max_moves
                     }}
-                })[1]
+                })
 
-        	for i = #close_villages,1,-1 do
-		        if avoid_map:get(close_villages[i][1], close_villages[i][2]) then
-				table.remove(close_villages, i)
-			else
-				local unit_in_way = wesnoth.get_unit(close_villages[i][1], close_villages[i][2])
-				if unit_in_way then
-					table.remove(close_villages, i)
+		if villages ~= nil and (#villages > 0) then
+			for i = #villages,1,-1 do
+				local unit_in_way = wesnoth.get_unit(villages[i][1], villages[i][2])
+				if unit_in_way ~= nil then
+					if (unit_in_way == guardian) then
+						table.remove(villages)
+						break
+					else
+						table.remove(villages, i)
+					end
 				end
-				unit_in_way = nil
 			end
 		end
 
-                if close_village then
-			newpos = { close_villages[#close_village][1], close_villages[#close_village][2]}
-            		table.remove(close_villages)
+		if villages ~= nil and (#villages > 0) then
+			newpos = { villages[#villages][1], villages[#villages][2]}
+			table.remove(villages)
 		end
 	end
 
