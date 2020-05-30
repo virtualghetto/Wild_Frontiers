@@ -87,7 +87,7 @@ function ca_wf_zone_guardian:execution(cfg)
         local newpos = nil
 
 	if (guardian.hitpoints < guardian.max_hitpoints) then
-                local close_village = (wesnoth.get_villages {
+                local close_villages = (wesnoth.get_villages {
                     { "and", {
                     x = guardian.x,
                     y = guardian.y,
