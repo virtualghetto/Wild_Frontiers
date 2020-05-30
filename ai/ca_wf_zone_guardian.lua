@@ -128,19 +128,19 @@ function ca_wf_zone_guardian:execution(cfg)
 	                y = '1-' .. height,
 	                { "and", zone }
 	            })
-	
+
 	            -- Check out which of those hexes the guardian can reach
 	            local reach_map = LS.of_pairs(wesnoth.find_reach(guardian))
 	            reach_map:inter(locs_map)
-	
+
 	            -- If it can reach some hexes, use only reachable locations,
 	            -- otherwise move toward any (random) one from the entire set
 	            if (reach_map:size() > 0) then
 	                locs_map = reach_map
 	            end
-	
+
 	            local locs = locs_map:to_pairs()
-	
+
 	            if (#locs > 0) then
 	                local newind = math.random(#locs)
 	                newpos = { locs[newind][1], locs[newind][2] }
