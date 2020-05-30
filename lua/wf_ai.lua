@@ -25,3 +25,16 @@ function wesnoth.micro_ais.wf_loiter_guardian(cfg)
 	}
     return required_keys, optional_keys, CA_parms
 end
+
+function wesnoth.micro_ais.wf_curse_guardian(cfg)
+	if (cfg.action ~= 'delete') and (not cfg.id) and (not wml.get_child(cfg, "filter")) then
+		H.wml_error("WF Curse Guardian [micro_ai] tag requires either id= key or [filter] tag")
+	end
+	local required_keys = { "[filter_second]" }
+	local optional_keys = { "id", "[filter]" }
+	local CA_parms = {
+		ai_id = 'mai_wf_curse_guardian',
+		{ ca_id = 'move', location = '~add-ons/Wild_Frontiers/ai/ca_wf_curse_guardian.lua', score = cfg.ca_score or 100100 }
+	}
+    return required_keys, optional_keys, CA_parms
+end
