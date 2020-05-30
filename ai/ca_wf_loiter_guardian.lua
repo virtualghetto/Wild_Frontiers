@@ -1,4 +1,5 @@
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
+local LS = wesnoth.require "location_set"
 
 local function wf_get_guardian(cfg)
     local filter = wml.get_child(cfg, "filter") or { id = cfg.id }
@@ -18,8 +19,9 @@ end
 
 function ca_wf_loiter_guardian:execution(cfg)
     local guardian = wf_get_guardian(cfg)
+    local newpos = { guardian.x, guardian.y }
 
-    if (guardian.moves > 0) and (not cfg.stationary) then
+	if (guardian.moves > 0) and (not cfg.stationary) then
             local zone = wml.get_child(cfg, "filter_location")
             local width, height = wesnoth.get_map_size()
             local locs_map = LS.of_pairs(wesnoth.get_locations {
@@ -46,14 +48,14 @@ function ca_wf_loiter_guardian:execution(cfg)
             else
                 newpos = { guardian.x, guardian.y }
             end
-        end
+	end
 
         -- Next hop toward that position
         local nh = AH.next_hop(guardian, newpos[1], newpos[2])
         if nh then
             AH.movefull_stopunit(ai, guardian, nh)
         end
-    end
+
     if (not guardian) or (not guardian.valid) then return end
 
     AH.checked_stopunit_moves(ai, guardian)
