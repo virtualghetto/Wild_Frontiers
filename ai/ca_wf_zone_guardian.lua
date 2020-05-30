@@ -100,7 +100,9 @@ function ca_wf_zone_guardian:execution(cfg)
 				local unit_in_way = wesnoth.get_unit(villages[i][1], villages[i][2])
 				if unit_in_way ~= nil then
 					if (unit_in_way == guardian) then
+						newpos = { villages[i][1], villages[i][2]}
 						table.remove(villages)
+						villages = nil
 						break
 					else
 						table.remove(villages, i)
