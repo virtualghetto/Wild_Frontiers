@@ -12,11 +12,11 @@ local function wf_get_guardian(cfg)
     return guardian
 end
 
-local function wf_get_target(cfg)
+local function wf_get_targets(cfg)
     local target = wesnoth.get_units {
         { "filter_side", { { "enemy_of", { side = wesnoth.current.side } } } },
         { "and", wml.get_child(cfg, "filter_second") }
-    }[1]
+    }
 
     return target
 end
@@ -26,22 +26,25 @@ function ca_wf_curse_guardian:evaluation(cfg)
     local guardian = wf_get_guardian(cfg)
     if (not guardian) then return 0 end
 
-    local target = wf_get_target(cfg)
-    if (not target) then return 0 end
+    local target = wf_get_targets(cfg)
+    if (not target[1]) then return 0 end
 
     return cfg.ca_score
 end
 
 function ca_wf_curse_guardian:execution(cfg)
     local guardian = wf_get_guardian(cfg)
-    local enemy = wf_get_target(cfg)
+    local enemies = wf_get_targets(cfg)
     local reach = wesnoth.find_reach(guardian)
 
+    if enemies[1] then
         local min_dist, target = 9e99
+        for _,enemy in ipairs(enemies) do
             local dist = M.distance_between(guardian.x, guardian.y, enemy.x, enemy.y)
             if (dist < min_dist) then
                 target, min_dist = enemy, dist
             end
+        end
 
         -- If a valid target was found, guardian attacks this target, or moves toward it
         if target then
@@ -89,7 +92,7 @@ function ca_wf_curse_guardian:execution(cfg)
                 AH.movefull_stopunit(ai, guardian, nh)
             end
         end
-
+    end
     if (not guardian) or (not guardian.valid) then return end
 
     AH.checked_stopunit_moves(ai, guardian)
