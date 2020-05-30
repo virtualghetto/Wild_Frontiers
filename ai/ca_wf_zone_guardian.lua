@@ -110,7 +110,8 @@ function ca_wf_zone_guardian:execution(cfg)
 		end
 
 		if villages ~= nil and (#villages > 0) then
-			newpos = { villages[#villages][1], villages[#villages][2]}
+			local newind = math.random(#villages)
+			newpos = { villages[newind][1], villages[newind][2]}
 			table.remove(villages)
 		end
 	end
