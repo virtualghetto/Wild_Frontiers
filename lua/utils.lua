@@ -69,7 +69,8 @@ function wesnoth.wml_actions.set_shroud(args)
 end
 
 function wesnoth.wml_actions.deselect()
-  wesnoth.deselect_hex()
---  wesnoth.select_unit()
+  wesnoth.delay(600);
+  wesnoth.deselect_hex();
+  wesnoth.select_unit();
 --  wesnoth.highlight_hex(1,1)
 end
