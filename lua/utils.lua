@@ -70,7 +70,7 @@ end
 
 function wesnoth.wml_actions.deselect()
   wesnoth.delay(600)
-  wesnoth.deselect_hex()
   wesnoth.select_unit()
+  wesnoth.deselect_hex()
 --  wesnoth.highlight_hex(1,1)
 end
