@@ -70,7 +70,7 @@ end
 
 function wesnoth.wml_actions.deselect()
   wesnoth.delay(600)
-  wesnoth.select_unit()
+  wesnoth.select_unit(nil, true)
   wesnoth.deselect_hex()
   wesnoth.fire("redraw")
 --  wesnoth.wml_actions.redraw {}
