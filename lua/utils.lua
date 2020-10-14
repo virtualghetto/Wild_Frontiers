@@ -74,5 +74,4 @@ function wesnoth.wml_actions.deselect()
   wesnoth.deselect_hex()
   wesnoth.fire("redraw")
 --  wesnoth.wml_actions.redraw {}
---  wesnoth.highlight_hex(1,1)
 end
