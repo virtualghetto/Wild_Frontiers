@@ -1,3 +1,4 @@
+-- mish mash of return_guardian, lurker and zone_guardian
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local LS = wesnoth.require "location_set"
 
