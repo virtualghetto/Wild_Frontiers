@@ -1,3 +1,4 @@
+-- Based on the attack code of zone_guardian
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local H = wesnoth.require "helper"
 local M = wesnoth.map

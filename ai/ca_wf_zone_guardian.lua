@@ -1,3 +1,4 @@
+-- zone_guardian with village healing (probably from generic_rush_engine.lua). can't remember
 local H = wesnoth.require "helper"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local LS = wesnoth.require "location_set"
