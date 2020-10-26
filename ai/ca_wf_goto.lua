@@ -1,4 +1,4 @@
--- goto with use_straight_line flipped on 0 move
+-- goto with no AH.checked_stopunit_moves(ai, best_unit)
 local H = wesnoth.require "helper"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local BC = wesnoth.require "ai/lua/battle_calcs.lua"
@@ -215,8 +215,8 @@ function ca_wf_goto:execution(cfg, data)
 
     if closest_hex then
         AH.checked_move_full(ai, best_unit, closest_hex[1], closest_hex[2])
-    else
-        AH.checked_stopunit_moves(ai, best_unit)
+--    else
+--        AH.checked_stopunit_moves(ai, best_unit)
     end
 
     if (not best_unit) or (not best_unit.valid) then return end
