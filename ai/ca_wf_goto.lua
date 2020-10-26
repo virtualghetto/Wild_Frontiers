@@ -1,4 +1,4 @@
--- goto with no AH.checked_stopunit_moves(ai, best_unit)
+-- goto with check if unit_in_way and no AH.checked_stopunit_moves(ai, best_unit)
 local H = wesnoth.require "helper"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local BC = wesnoth.require "ai/lua/battle_calcs.lua"
@@ -214,7 +214,10 @@ function ca_wf_goto:execution(cfg, data)
     end
 
     if closest_hex then
-        AH.checked_move_full(ai, best_unit, closest_hex[1], closest_hex[2])
+        local unit_in_way = wesnoth.get_unit(closest_hex[1], closest_hex[2])
+        if (not unit_in_way) then
+            AH.checked_move_full(ai, best_unit, closest_hex[1], closest_hex[2])
+        end
 --    else
 --        AH.checked_stopunit_moves(ai, best_unit)
     end
