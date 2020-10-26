@@ -47,7 +47,7 @@ function wesnoth.micro_ais.wf_goto(cfg)
 	}
 	local CA_parms = {
 		ai_id = 'mai_wf_goto',
-		{ ca_id = 'move', location = ''~add-ons/Wild_Frontiers/ai/ca_wf_goto.lua', score = cfg.ca_score or 300000 }
+		{ ca_id = 'move', location = '~add-ons/Wild_Frontiers/ai/ca_wf_goto.lua', score = cfg.ca_score or 300000 }
 	}
     return required_keys, optional_keys, CA_parms
 end
