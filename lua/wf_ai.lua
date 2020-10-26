@@ -38,3 +38,16 @@ function wesnoth.micro_ais.wf_curse_guardian(cfg)
 	}
     return required_keys, optional_keys, CA_parms
 end
+
+function wesnoth.micro_ais.wf_goto(cfg)
+	local required_keys = { "[filter_location]" }
+	local optional_keys = {
+		"avoid_enemies", "[filter]", "ignore_units", "ignore_enemy_at_goal",
+		"release_all_units_at_goal", "release_unit_at_goal", "unique_goals", "use_straight_line", "flip_straight_line"
+	}
+	local CA_parms = {
+		ai_id = 'mai_wf_goto',
+		{ ca_id = 'move', location = ''~add-ons/Wild_Frontiers/ai/ca_wf_goto.lua', score = cfg.ca_score or 300000 }
+	}
+    return required_keys, optional_keys, CA_parms
+end
