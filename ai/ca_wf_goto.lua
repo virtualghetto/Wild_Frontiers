@@ -140,11 +140,22 @@ function ca_wf_goto:execution(cfg, data)
             else  -- Otherwise find the best path to take
                 local path, cost
                 if cfg.avoid_enemies then
+-- if version >= 1.15.0
+if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
+                    path, cost = wesnoth.find_path(unit, loc[1], loc[2], {
+                        calculate = function(x, y, current_cost)
+                            return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, cfg.avoid_enemies)
+                        end
+                    })
+-- else version < 1.15.0
+else
                     path, cost = wesnoth.find_path(unit, loc[1], loc[2],
                         function(x, y, current_cost)
                             return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, cfg.avoid_enemies)
                         end
                     )
+end
+-- end version
                 else
                     local enemy_at_goal
                     if cfg.ignore_enemy_at_goal then
