@@ -1,0 +1,51 @@
+default_map_generator_job.cpp
+
+show_labels to name?
+
+Default terrains
+const terrain_code HUMAN_CASTLE = string_to_number_("Ch");
+const terrain_code HUMAN_KEEP = string_to_number_("Kh");
+const terrain_code SHALLOW_WATER = string_to_number_("Ww");
+const terrain_code DEEP_WATER = string_to_number_("Wo");
+const terrain_code GRASS_LAND = string_to_number_("Gg");
+const terrain_code FOREST = string_to_number_("Gg^Ff");
+const terrain_code MOUNTAIN = string_to_number_("Mm");
+const terrain_code HILL = string_to_number_("Hh");
+
+
+Steps for default map generation:
+
+0) map has dimensions width * height * 9 (or width*3 * height*3). Middle part is then selected the rest is discarded
+1) Create height map
+2) make entire map flatland
+3) Start applying [height] tags
+4) Try to create lakes and rivers. the river starts at lake
+   The number of lakes is random 0..max_lakes
+   (increase max_lakes)
+   It will try to generate each lake 100 times.
+   a random x,y is selected from the map, with no regard if x,y was changed by [height] above
+   heights less than or equal min_lake_height is skipped
+   That x,y is then used to generate a map before the rest of lake is generated
+   river always go from bigger heights to smaller heights.
+   river_frequency is river_uphill. the height amount that the river is allowed to overcome on selecting the next destination.
+   heights[x][y] > heights[river.back().x][river.back().y] + river_uphill
+   river tries to terminate off map or in DEEP or SHALLOW water.
+   river path is SHALLOW_WATER
+   (try setting river_frequency=20)
+5) Create the lakes.
+   lake_size is lake_fall_off. lake_fall_off is divided by 2 every iteration.
+   it takes the lake/river source and tries to create SHALLOW water on x+1 x-1 y+1 y-1
+   chance is random%100 < lake_fall_off
+   (try lake_size=100)
+6) Create temperature map
+   default dimensions = 40 * 40 * 9 = 14400
+   temp_interation * width * height / 14400
+7) Apply [convert] tags that uses the temperatures
+8) Identify castle keeps. This tries to randomly place player number keeps on valid_terrain with min_distance apart
+   temperature converted terrains should be included in valid_terrain
+9) Try to build roads. try to connect keeps
+   the number of roads is roads + (castles * castles)
+10) build castles around keeps
+11) place villages
+
+Note: Try to have the same heights and convert heights. tweak what to do with the temperature.
