@@ -11,6 +11,7 @@ http://forums.wesnoth.org/viewtopic.php?t=28306&p=414894
 local helper = wesnoth.require "lua/helper.lua"
 
 function wesnoth.wml_actions.save_map(cfg)
+  local v = cfg.variable or helper.wml_error("save_map missing required variable= attribute.")
   local b = cfg.border_size or 1
   local w, h = wesnoth.get_map_size()
   local t = {}
@@ -25,7 +26,6 @@ function wesnoth.wml_actions.save_map(cfg)
   s = string.gsub(s, "Kh^Yk", "1 Kh^Yk")
   s = string.gsub(s, "Kea^Yk", "1 Kea^Yk")
   s = string.gsub(s, "Kha^Yk", "1 Kha^Yk")
-  local v = cfg.variable or helper.wml_error("save_map missing required variable= attribute.")
   wesnoth.set_variable(v, string.format("border_size=%d\nusage=map\n\n%s", b, s))
 end
 
