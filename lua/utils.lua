@@ -134,23 +134,14 @@ function wesnoth.wml_actions.road_path(cfg)
 		road_ops[road.terrain] = road
 	end
 
-	local tmp_unit = false
-	local unit = wesnoth.get_unit(from_x, from_y)
-
-	if (not unit) or (not unit.valid) then
-		--unit = wesnoth.put_unit({ type = "Fog Clearer" }, from_x, from_y, false)
-
-		unit = wesnoth.create_unit({ type = "Fog Clearer", x = from_x, y = from_y}, false)
-		tmp_unit = true
-	end
-
 	local path, cost
 
 -- if wesnoth version >= 1.15.0
 if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 
 
-	path, cost = wesnoth.find_path(unit, to_x, to_y, {
+	path, cost = wesnoth.find_path(from_x, from_y, to_x, to_y, {
+		viewing_side = 1, ignore_units = true, ignore_teleport = true,
 		calculate = function(x, y, current_cost)
 			local res = 1.0
 			local tile = wesnoth.get_terrain(x, y)
@@ -166,7 +157,7 @@ if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 else
 
 
-	path, cost = wesnoth.find_path(unit, to_x, to_y,
+	path, cost = wesnoth.find_path(from_x, from_y, to_x, to_y,
 		function(x, y, current_cost)
 			local res = 1.0
 			local tile = wesnoth.get_terrain(x, y)
@@ -183,10 +174,6 @@ end
 -- end wesnoth version
 
 
-
-	if tmp_unit then
-		wesnoth.erase_unit(from_x, from_y)
-	end
 
 	local prev_x, prev_y
 	for i, loc in ipairs(path) do
