@@ -125,8 +125,15 @@ function wesnoth.wml_actions.road_path(cfg)
 	local from_y = tonumber(cfg.from_y) or helper.wml_error("[road_path] expects a from_y= attribute.")
 	local to_x = tonumber(cfg.to_x) or helper.wml_error("[road_path] expects a to_x= attribute.")
 	local to_y = tonumber(cfg.to_y) or helper.wml_error("[road_path] expects a to_y= attribute.")
+	if not on_board(from_x, from_y) then
+		return
+	end
+
+	if not on_board(to_x, to_y) then
+		return
+	end
+
 	local windiness = tonumber(cfg.road_windiness) or 1
-	local map_width, map_height, b = wesnoth.get_map_size()
 
 	local road_costs, road_ops = {}, {}
 	for road in helper.child_range(cfg, "road_cost") do
