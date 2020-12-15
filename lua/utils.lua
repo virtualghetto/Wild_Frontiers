@@ -192,3 +192,53 @@ end
 		end
 	end
 end
+
+local utils = wesnoth.require "wml-utils"
+
+function wesnoth.wml_actions.store_nearest_locations(cfg)
+	local src_x = tonumber(cfg.x) or helper.wml_error("[store_nearest_locations] expects a x= attribute.")
+	local src_y = tonumber(cfg.y) or helper.wml_error("[store_nearest_locations] expects a y= attribute.")
+	local src_r = tonumber(cfg.radius) or helper.wml_error("[store_nearest_locations] expects a radius= attribute.")
+	local filter_location = wml.get_child(cfg, "filter_location") or helper.wml_error("[store_nearest_locations] missing required [filter_location] tag")
+
+	if not on_board(src_x, src_y) then
+		return
+	end
+
+	if src_r < 0 then
+		return
+	end
+
+	local distance = 0
+
+	-- the variable can be mentioned in a [find_in] subtag, so it
+	-- cannot be cleared before the locations are recovered
+	local writer = utils.vwriter.init(cfg, "location")
+
+	local locs = LS.create()
+	for i = 1, 65536 do
+		locs = wesnoth.get_locations({
+				{ "and", { x = src_x, y = src_y, radius = distance } },
+				{ "and", filter_location }
+			})
+
+		if #locs > 0 then
+			break
+		end
+
+		distance = distance + 1
+		if distance > src_r then
+			break
+		end
+	end
+
+	for i, loc in ipairs(locs) do
+		local x, y = loc[1], loc[2]
+		local t = wesnoth.get_terrain(x, y)
+		local res = { x = x, y = y, terrain = t }
+		if wesnoth.get_terrain_info(t).village then
+			res.owner_side = wesnoth.get_village_owner(x, y) or 0
+		end
+		utils.vwriter.write(writer, res)
+	end
+end
