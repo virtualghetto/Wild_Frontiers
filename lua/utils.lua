@@ -21,11 +21,10 @@ function wesnoth.wml_actions.save_map(cfg)
     t[y + b] = table.concat(r, ',')
   end
   local s = table.concat(t, '\n')
-  s = string.gsub(s, "1 ", "")
-  s = string.gsub(s, "Ke^Yk", "1 Ke^Yk")
-  s = string.gsub(s, "Kh^Yk", "1 Kh^Yk")
-  s = string.gsub(s, "Kea^Yk", "1 Kea^Yk")
-  s = string.gsub(s, "Kha^Yk", "1 Kha^Yk")
+  -- Remove side locations
+  s = string.gsub(s, "%s*%d+%s*", "")
+  -- Set side 1 keep location
+  s = string.gsub(s, "K(%a+)^Yk", "1 K%1^Yk")
   wesnoth.set_variable(v, string.format("border_size=%d\nusage=map\n\n%s", b, s))
 end
 
