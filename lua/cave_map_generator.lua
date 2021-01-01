@@ -20,6 +20,14 @@ function callbacks.generate_map(params)
 		end
 	end
 
+	local function insert_locs(x, y, locs_set)
+		if locs_set:get(x,y) or not map:on_board(x, y) then
+			return
+		end
+		locs_set:insert(x,y)
+	end
+
+
 	local function clear_tile(x, y, terrain_clear)
 		if not map:on_board(x,y) then
 			return
@@ -63,7 +71,7 @@ function callbacks.generate_map(params)
 			end
 		else
 			local tile = helper.rand(terrain_clear or params.terrain_clear)
-			map:set_tile(to_x, to_y, tile)
+			--map:set_tile(to_x, to_y, tile)
 		end
 	end
 
@@ -100,25 +108,25 @@ function callbacks.generate_map(params)
 		local chance = tonumber(chamber.chance) or 100
 		local x, y = MG.random_location(chamber.x, chamber.y)
 		if chamber.relative_to == "top-right" then
-			x = map.w - x
+			x = map.w - 1 - x
 		elseif chamber.relative_to == "bottom-right" then
-			x = map.w - x
-			y = map.h - y
+			x = map.w - 1 - x
+			y = map.h - 1 - y
 		elseif chamber.relative_to == "bottom-left" then
-			y = map.h - y
+			y = map.h - 1 - y
 		elseif chamber.relative_to == "top-middle" then
-			x = (map.w / 2) + x
+			x = math.floor((map.w - 1 - x) / 2)
 		elseif chamber.relative_to == "bottom-middle" then
-			x = (map.w / 2) + x
-			y = map.h - y
+			x = math.floor((map.w - 1 - x) / 2)
+			y = map.h - 1 - y
 		elseif chamber.relative_to == "middle-left" then
-			y = (map.h / 2) + y
+			y = math.floor((map.h - 1 - y) / 2)
 		elseif chamber.relative_to == "middle-right" then
-			y = (map.h / 2) + y
-			x = map.w - x
+			y = math.floor((map.h - 1 - y) / 2)
+			x = map.w - 1 - x
 		elseif chamber.relative_to == "center" then
-			x = (map.w / 2) + x
-			y = (map.h / 2) + y
+			x = math.floor((map.w - 1 - x) / 2)
+			y = math.floor((map.h - 1 - y) / 2)
 		end -- Default is "top-left" which means no adjustments needed
 		local id = chamber.id
 		if chance == 0 or random(100) > chance then
@@ -192,6 +200,11 @@ function callbacks.generate_map(params)
 			table.remove(locs_list, index)
 			local x, y = table.unpack(loc)
 
+			if item.center then
+				x = v.center_x
+				y = v.center_y
+			end
+
 			if item.id then
 				map:add_location(x, y, item.id)
 			end
@@ -216,8 +229,6 @@ function callbacks.generate_map(params)
 				local tile = map:get_tile(x, y)
 				if tile == params.terrain_wall then
 					res = laziness
-				else
-					res = v.costs[tile] or 1.0
 				end
 				if windiness > 1 then
 					res = res * random(windiness)
@@ -225,8 +236,8 @@ function callbacks.generate_map(params)
 				return res
 			end
 			local path = wesnoth.find_path(
-				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, params.map_width, params.map_height)
-			local prev_x, prev_y
+				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, map.w, map.h)
+
 			for i, loc in ipairs(path) do
 				local locs_set = LS.create()
 				build_chamber(loc[1], loc[2], locs_set, width, jagged)
@@ -239,12 +250,32 @@ function callbacks.generate_map(params)
 					else
 						ter_to_place = v.data.terrain_clear or params.terrain_clear
 					end
+					clear_tile(x, y, ter_to_place)
+				end
+			end
+
+			local calc = function(x, y)
+				local tile = map:get_tile(x, y)
+				local res = v.costs[tile] or 1.0
+				if windiness > 1 then
+					res = res * random(windiness)
+				end
+				return res
+			end
+			local path = wesnoth.find_path(
+				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, map.w, map.h)
+
+			local prev_x, prev_y
+			for i, loc in ipairs(path) do
+				local locs_set = LS.create()
+				insert_locs(loc[1], loc[2], locs_set)
+				for x,y in locs_set:stable_iter() do
+					ter_to_place = v.data.terrain_clear or params.terrain_clear
 					place_road(x, y, prev_x, prev_y, v.roads, ter_to_place)
 					prev_x, prev_y = x, y
 				end
 			end
 		end
-
 	end
 
 	return tostring(map)
