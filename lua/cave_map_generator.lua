@@ -32,6 +32,9 @@ function callbacks.generate_map(params)
 		if not map:on_board(x,y) then
 			return
 		end
+		if map:get_tile(x,y) ~= params.terrain_wall then
+			return
+		end
 		if map:get_tile(x,y) == params.terrain_castle or map:get_tile(x,y) == params.terrain_keep then
 			return
 		end
