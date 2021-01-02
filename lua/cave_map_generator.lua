@@ -15,7 +15,9 @@ function callbacks.generate_map(params)
 		if not allow_dups and locs_set:get(x,y) then
 			return
 		end
-		locs_set:insert(x,y)
+		if not locs_set:get(x,y) then
+			locs_set:insert(x,y)
+		end
 		for xn, yn in MG.adjacent_tiles(x, y) do
 			if random(100) <= 100 - jagged then
 				build_chamber(xn, yn, locs_set, size - 1, jagged, allow_dups)
@@ -162,9 +164,9 @@ function callbacks.generate_map(params)
 		end
 		local locs_set = LS.create()
 		build_chamber(x, y, locs_set, chamber.size or 3, chamber.jagged or 0, chamber.radius or false)
-		if chamber.radius then
-			locs_set = remove_duplicates(locs_set)
-		end
+		-- if chamber.radius then
+		-- 	locs_set = remove_duplicates(locs_set)
+		-- end
 
 		local items = {}
 		for item in wml.child_range(chamber, "item_location") do
@@ -260,9 +262,9 @@ function callbacks.generate_map(params)
 			for i, loc in ipairs(path) do
 				local locs_set = LS.create()
 				build_chamber(loc[1], loc[2], locs_set, width, jagged, radius)
-				if radius then
-					locs_set = remove_duplicates(locs_set)
-				end
+				-- if radius then
+				--	locs_set = remove_duplicates(locs_set)
+				-- end
 				for x,y in locs_set:stable_iter() do
 					local r = 1000
 					local ter_to_place
