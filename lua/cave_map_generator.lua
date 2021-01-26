@@ -131,18 +131,18 @@ function callbacks.generate_map(params)
 		elseif chamber.relative_to == "bottom-left" then
 			y = map.h - 1 - y
 		elseif chamber.relative_to == "top-middle" then
-			x = math.floor((map.w - 1 - x) / 2)
+			x = math.floor((map.w - 1 - x) / 2.0)
 		elseif chamber.relative_to == "bottom-middle" then
-			x = math.floor((map.w - 1 - x) / 2)
+			x = math.floor((map.w - 1 - x) / 2.0)
 			y = map.h - 1 - y
 		elseif chamber.relative_to == "middle-left" then
-			y = math.floor((map.h - 1 - y) / 2)
+			y = math.floor((map.h - 1 - y) / 2.0)
 		elseif chamber.relative_to == "middle-right" then
-			y = math.floor((map.h - 1 - y) / 2)
+			y = math.floor((map.h - 1 - y) / 2.0)
 			x = map.w - 1 - x
 		elseif chamber.relative_to == "center" then
-			x = math.floor((map.w - 1 - x) / 2)
-			y = math.floor((map.h - 1 - y) / 2)
+			x = math.floor((map.w - 1 - x) / 2.0)
+			y = math.floor((map.h - 1 - y) / 2.0)
 		end -- Default is "top-left" which means no adjustments needed
 		local id = chamber.id
 		if chance == 0 or random(100) > chance then
