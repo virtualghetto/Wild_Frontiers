@@ -239,3 +239,9 @@ function wesnoth.wml_actions.store_nearest_locations(cfg)
 		utils.vwriter.write(writer, res)
 	end
 end
+
+function wesnoth.effects.canrecruit(u, cfg)
+	-- u.canrecruit = true
+	-- helper.modify_unit({ id=u.id }, { canrecruit=yes })
+	wesnoth.units.modify({ id=u.id }, { canrecruit=yes })
+end
