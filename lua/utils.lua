@@ -242,6 +242,7 @@ end
 
 --local helper = wesnoth.require "lua/helper.lua"
 --helper = wesnoth.require("lua/helper.lua")
+--[[
 function wesnoth.effects.canrecruit(u, cfg)
 	-- u.canrecruit = true
 	--helper.modify_unit({ id=u.id }, { canrecruit=yes })
@@ -251,3 +252,4 @@ function wesnoth.effects.canrecruit(u, cfg)
 		add = "canrecruit",
 	}}, false)
 end
+--]]
