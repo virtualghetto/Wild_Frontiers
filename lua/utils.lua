@@ -240,13 +240,11 @@ function wesnoth.wml_actions.store_nearest_locations(cfg)
 	end
 end
 
---local helper = wesnoth.require "lua/helper.lua"
---helper = wesnoth.require("lua/helper.lua")
 --[[
 function wesnoth.effects.canrecruit(u, cfg)
 	-- u.canrecruit = true
-	--helper.modify_unit({ id=u.id }, { canrecruit=yes })
-	--wesnoth.units.modify({ id=u.id }, { canrecruit=yes })
+	-- helper.modify_unit({ id=u.id }, { canrecruit=yes })
+	-- wesnoth.units.modify({ id=u.id }, { canrecruit=yes })
 	wesnoth.add_modification(u, "object", { wml.tag.effect {
 		apply_to = "status",
 		add = "canrecruit",
