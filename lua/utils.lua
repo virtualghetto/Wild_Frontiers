@@ -207,6 +207,7 @@ function wesnoth.wml_actions.store_nearest_locations(cfg)
 	end
 
 	local distance = 0
+	local distance_set = false
 
 	-- the variable can be mentioned in a [find_in] subtag, so it
 	-- cannot be cleared before the locations are recovered
@@ -220,6 +221,7 @@ function wesnoth.wml_actions.store_nearest_locations(cfg)
 			})
 
 		if #locs > 0 then
+			distance_set = true
 			break
 		end
 
@@ -227,6 +229,10 @@ function wesnoth.wml_actions.store_nearest_locations(cfg)
 		if distance > src_r then
 			break
 		end
+	end
+
+	if distance_set then
+		wml.variables["nearest_radius"] = distance
 	end
 
 	for i, loc in ipairs(locs) do
