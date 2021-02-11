@@ -255,5 +255,10 @@ function wesnoth.effects.canrecruit(u, cfg)
 		apply_to = "status",
 		add = "canrecruit",
 	}}, false)
+	-- Celtic_Minstrel
+	--wesnoth.wml_actions.modify_unit{
+	--	wml.tag.filter{id = u.id},
+	--	canrecruit = true -- or canrecruit = u.canrecruit if you want to also allow removing canrecruit
+	--}
 end
 --]]
