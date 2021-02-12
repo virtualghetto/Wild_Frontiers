@@ -249,7 +249,7 @@ end
 function wesnoth.effects.canrecruit(u, cfg)
 	u.canrecruit = true
 	wesnoth.add_modification(u, "object", { wml.tag.effect {
-		apply_to = "status",
-		add = "canrecruit",
+		apply_to = "overlay",
+		add = "misc/leader-expendable.png",
 	}}, false)
 end
