@@ -246,6 +246,10 @@ function callbacks.generate_map(params)
 			local jagged = v.data.jagged or 0
 			local radius = v.data.radius or false
 			local calc = function(x, y)
+				if x == 0 or x == params.map_width - 1 or y == 0 or y == params.map_height - 1 then
+					-- Map borders are impassable
+					return math.huge
+				end
 				local res = 1.0
 				local tile = map:get_tile(x, y)
 				if tile == params.terrain_wall then
@@ -257,7 +261,7 @@ function callbacks.generate_map(params)
 				return res
 			end
 			local path = wesnoth.find_path(
-				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, map.w - 2, map.h - 2)
+				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, params.map_width, params.map_height)
 
 			for i, loc in ipairs(path) do
 				local locs_set = LS.create()
