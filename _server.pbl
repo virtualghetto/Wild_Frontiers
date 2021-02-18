@@ -15,7 +15,7 @@ tags="CotF,ANL,WF"
 title="Wild Frontiers"
 translate=true
 type="campaign"
-version="1.11.13"
+version="1.12.0"
 [feedback]
 	topic_id=51541
 [/feedback]
