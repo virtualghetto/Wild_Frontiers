@@ -147,7 +147,7 @@ if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 
 
 	path, cost = wesnoth.find_path(from_x, from_y, to_x, to_y, {
-		viewing_side = 1, ignore_units = true, ignore_teleport = true,
+		viewing_side = 1, ignore_units = true, ignore_teleport = true, ignore_visibility = true,
 		calculate = function(x, y, current_cost)
 			local tile = wesnoth.get_terrain(x, y)
 			local res = road_costs[tile] or 1.0
