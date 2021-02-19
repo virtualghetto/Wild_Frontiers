@@ -283,6 +283,10 @@ function callbacks.generate_map(params)
 			end
 
 			local calc = function(x, y)
+				if x == 0 or x == map.w - 1 or y == 0 or y == map.h - 1 then
+					-- Map borders are impassable
+					return math.huge
+				end
 				local tile = map:get_tile(x, y)
 				local res = v.costs[tile] or 1.0
 				if windiness > 1 then
@@ -291,7 +295,7 @@ function callbacks.generate_map(params)
 				return res
 			end
 			local path = wesnoth.find_path(
-				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, map.w - 2, map.h - 2)
+				v.start_x, v.start_y, v.dest_x, v.dest_y, calc, map.w, map.h)
 
 			local prev_x, prev_y
 			for i, loc in ipairs(path) do
