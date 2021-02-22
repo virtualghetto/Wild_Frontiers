@@ -90,10 +90,12 @@ function ca_wf_zone_guardian:execution(cfg)
 	if (guardian.hitpoints < guardian.max_hitpoints) then
                 local villages = (wesnoth.get_villages {
                     { "and", {
+                    include_borders = false,
+                    terrain = '*^V*,*^Yt*',
                     x = guardian.x,
                     y = guardian.y,
-                    radius = guardian.max_moves
-                    }}
+                    radius = guardian.max_moves,
+                    }},
                 })
 
 		if villages ~= nil and (#villages > 0) then
