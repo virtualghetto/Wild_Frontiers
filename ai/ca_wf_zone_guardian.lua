@@ -1,4 +1,5 @@
 -- zone_guardian with village healing (probably from generic_rush_engine.lua). can't remember
+-- find nearest hex from goto micro ai
 local H = wesnoth.require "helper"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local LS = wesnoth.require "location_set"
@@ -159,7 +160,28 @@ function ca_wf_zone_guardian:execution(cfg)
         -- Next hop toward that position
         local nh = AH.next_hop(guardian, newpos[1], newpos[2])
         if nh then
-            AH.movefull_stopunit(ai, guardian, nh)
+            local unit_in_way = wesnoth.get_unit(nh[1], nh[2])
+            if (not unit_in_way) then
+                AH.movefull_stopunit(ai, guardian, nh)
+            else
+		-- From goto micro ai
+                local max_rating, closest_hex, best_unit = -9e99
+                local hex, _, rating = AH.find_best_move(guardian, function(x, y)
+                    local r = -M.distance_between(x, y, newpos[1], newpos[2])
+                    -- Also add distance from unit as very small rating component
+                    -- This is mostly here to keep unit in place when no better hexes are available
+                    r = r - M.distance_between(x, y, guardian.x, guardian.y) / 1000.
+                    return r
+                end, { no_random = true })
+
+                if (rating > max_rating) then
+                    max_rating = rating
+                    closest_hex, best_unit = hex, guardian
+                end
+                if closest_hex then
+                    AH.movefull_stopunit(ai, best_unit, closest_hex)
+                end
+            end
         end
     end
     if (not guardian) or (not guardian.valid) then return end

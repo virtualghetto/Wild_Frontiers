@@ -224,13 +224,18 @@ end
         end
     end
 
+    local remove_movement = cfg.remove_movement
+    if (remove_movement == nil) then remove_movement = true end
+
     if closest_hex then
         local unit_in_way = wesnoth.get_unit(closest_hex[1], closest_hex[2])
         if (not unit_in_way) then
             AH.checked_move_full(ai, best_unit, closest_hex[1], closest_hex[2])
+        elseif remove_movement then
+            AH.checked_stopunit_moves(ai, best_unit)
         end
---    else
---        AH.checked_stopunit_moves(ai, best_unit)
+    elseif remove_movement then
+        AH.checked_stopunit_moves(ai, best_unit)
     end
 
     if (not best_unit) or (not best_unit.valid) then return end
