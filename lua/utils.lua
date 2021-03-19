@@ -106,15 +106,15 @@ local function place_road(to_x, to_y, from_x, from_y, road_ops)
 			end
 			local dir = wesnoth.map.get_relative_dir(from_x, from_y, to_x, to_y)
 			if dir == 'n' or dir == 's' then
-				wesnoth.set_terrain(to_x, to_y, bridges[1], "both", false)
+				wesnoth.set_terrain(to_x, to_y, bridges[1], 'both', false)
 			elseif dir == 'sw' or dir == 'ne' then
-				wesnoth.set_terrain(to_x, to_y, bridges[2], "both", false)
+				wesnoth.set_terrain(to_x, to_y, bridges[2], 'both', false)
 			elseif dir == 'se' or dir == 'nw' then
-				wesnoth.set_terrain(to_x, to_y, bridges[3], "both", false)
+				wesnoth.set_terrain(to_x, to_y, bridges[3], 'both', false)
 			end
 		elseif tile_op.convert_to then
 			local tile = helper.rand(tile_op.convert_to)
-			wesnoth.set_terrain(to_x, to_y, tile, "both", false)
+			wesnoth.set_terrain(to_x, to_y, tile, 'both', false)
 		end
 	end
 end
