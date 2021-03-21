@@ -88,11 +88,12 @@ end
 function ca_wf_goto:execution(cfg, data)
     local units, locs = GO_units, GO_locs
 
-    local enemy_map, enemy_attack_map
+    local enemy_map, enemy_attack_map, avoid_enemies
     if cfg.avoid_enemies then
-        if (type(cfg.avoid_enemies) ~= 'number') then
+        avoid_enemies = tonumber(cfg.avoid_enemies)
+        if (not avoid_enemies) then
             H.wml_error("Goto AI avoid_enemies= requires a number as argument")
-        elseif (cfg.avoid_enemies <= 0) then
+        elseif (avoid_enemies <= 0) then
             H.wml_error("Goto AI avoid_enemies= argument must be >0")
         end
 
@@ -139,19 +140,19 @@ function ca_wf_goto:execution(cfg, data)
                 end
             else  -- Otherwise find the best path to take
                 local path, cost
-                if cfg.avoid_enemies then
+                if avoid_enemies then
 -- if version >= 1.15.0
 if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
                     path, cost = wesnoth.find_path(unit, loc[1], loc[2], {
                         calculate = function(x, y, current_cost)
-                            return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, cfg.avoid_enemies)
+                            return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, avoid_enemies)
                         end
                     })
 -- else version < 1.15.0
 else
                     path, cost = wesnoth.find_path(unit, loc[1], loc[2],
                         function(x, y, current_cost)
-                            return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, cfg.avoid_enemies)
+                            return wf_custom_cost(x, y, unit, enemy_map, enemy_attack_map, avoid_enemies)
                         end
                     )
 end
@@ -211,9 +212,11 @@ end
     end
 
     -- Now go through the hexes along that path, use normal path finding
+    -- We cannot ignore units in this case though, as we need to determine which hexes
+    -- the unit can actually get to
     closest_hex = best_path[1]
     for i = 2,#best_path do
-        local sub_path, sub_cost = AH.find_path_with_shroud(best_unit, best_path[i][1], best_path[i][2], cfg)
+        local sub_path, sub_cost = AH.find_path_with_shroud(best_unit, best_path[i][1], best_path[i][2])
         if sub_cost <= best_unit.moves then
             local unit_in_way = wesnoth.get_unit(best_path[i][1], best_path[i][2])
             if (not AH.is_visible_unit(wesnoth.current.side, unit_in_way)) then
