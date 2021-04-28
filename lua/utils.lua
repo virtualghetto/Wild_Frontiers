@@ -256,17 +256,6 @@ end
 
 -- https://github.com/Elvish-Hunter/Wesnoth_Lua_Pack.git
 -- modified Wesnoth_Lua_Pack/wml-tags.lua
---[[
-[get_recruit_list]
-	[filter_side]
-		side=1
-	[/filter_side]
-	[filter]
-		side=1
-	[/filter]
-	variable=recruit_list
-[/get_recruit_list]
---]]
 function wesnoth.wml_actions.get_recruit_list( cfg )
 	-- support function
 	-- Lua does not have the in operator as Python
