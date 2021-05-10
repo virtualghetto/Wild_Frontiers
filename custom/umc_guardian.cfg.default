@@ -1,0 +1,22 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### Custom Guardians side 2
+
+#### Add UMC faction names. The names must not have spaces.
+
+#define WF_UMC_GUARDIAN
+custom_umc_Tauroch,custom_umc_Quenoth#enddef
+
+#define WF_UMC_GUARDIAN_CASE
+
+    ### Add the umc factions using the WF_UMC_GUARDIAN_FACTION macro.
+
+    ### Arguments:
+    ### UMC_CASE: the internal name of the faction. Should be the same as the name given in WF_UMC_BANDIT. It should not have spaces.
+    ### UMC_LEADER: The list of possible leaders for the faction.
+    ### UMC_RECRUIT: The list of possible recruits for the faction.
+
+    {WF_UMC_GUARDIAN_FACTION custom_umc_Tauroch "Tauroch Rider" "Quenoth Fighter,Tauroch Rider"}
+    {WF_UMC_GUARDIAN_FACTION custom_umc_Quenoth "Quenoth Fighter,Quenoth Mystic" "Quenoth Fighter,Quenoth Mystic,Quenoth Scout"}
+
+#enddef

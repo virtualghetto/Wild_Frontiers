@@ -1,0 +1,23 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### UMC Outlaws side 4
+
+#### Add UMC faction names. The names must not have spaces.
+
+#define WF_UMC_BANDIT
+custom_umc_Tauroch,custom_umc_Quenoth#enddef
+
+#define WF_UMC_BANDIT_CASE
+
+    ### Add the umc factions using the WF_UMC_BANDIT_FACTION macro.
+
+    ### Arguments:
+    ### UMC_CASE: the internal name of the faction. Should be the same as the name given in WF_UMC_BANDIT. It should not have spaces.
+    ### UMC_SOUND: The sound used when the faction spawns.
+    ### UMC_LEADER: The list of possible leaders for the faction.
+    ### UMC_RECRUIT: The list of possible recruits for the faction.
+
+    {WF_UMC_BANDIT_FACTION custom_umc_Tauroch tauroch-hit-1.ogg "Tauroch Rider" "Quenoth Fighter,Tauroch Rider"}
+    {WF_UMC_BANDIT_FACTION custom_umc_Quenoth tauroch-hit-2.ogg "Quenoth Fighter,Quenoth Mystic" "Quenoth Fighter,Quenoth Mystic,Quenoth Scout"}
+
+#enddef

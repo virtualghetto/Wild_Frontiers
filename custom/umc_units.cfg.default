@@ -1,0 +1,8 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### Add UMC add-on units
+
+### This is the path for what goes into [+units]
+
+{campaigns/Under_the_Burning_Suns/units/units.cfg}
+{campaigns/Under_the_Burning_Suns/units/quenoth}

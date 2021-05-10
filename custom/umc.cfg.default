@@ -1,0 +1,16 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### Add UMC add-on binary path
+
+# [binary_path]
+#     path=data/add-ons/UMC_Name
+# [/binary_path]
+
+[binary_path]
+    path=data/campaigns/Under_the_Burning_Suns
+[/binary_path]
+
+# Include UMC necessary macros
+
+{campaigns/Under_the_Burning_Suns/utils/abilities.cfg}
+{campaigns/Under_the_Burning_Suns/utils/animation_macros.cfg}
