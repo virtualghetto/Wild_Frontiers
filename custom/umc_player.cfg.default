@@ -1,0 +1,8 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### UMC Player
+
+#### Allow the player to recruit these UMC units.
+
+#define WF_UMC_PLAYER
+"Tauroch Rider,Quenoth Fighter,Quenoth Mystic,Quenoth Scout"#enddef
