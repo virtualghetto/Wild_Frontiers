@@ -1,0 +1,36 @@
+#textdomain wesnoth-Wild_Frontiers
+
+#### UMC Orcs side 5
+
+#### Add UMC faction names. The names must not have spaces.
+
+#define WF_UMC_ORCS
+custom_umc_Tauroch,custom_umc_Quenoth#enddef
+
+#define WF_UMC_ORCS_CASE
+    [case]
+        value=custom_umc_Tauroch
+        {RANDOM_VAR rnd_leader ("Tauroch Rider")}
+        {VARIABLE extra_recruit "Quenoth Fighter,Tauroch Rider"}
+        {VARIABLE rnd_assistants ("Quenoth Fighter,Tauroch Rider")}
+        [set_variables]
+            name=extra_list
+            mode=replace
+            {VALUE2 type "Tauroch Rider" cost 15}
+            {VALUE2 type "Quenoth Fighter" cost 15}
+        [/set_variables]
+    [/case]
+    [case]
+        value=custom_umc_Quenoth
+        {RANDOM_VAR rnd_leader ("Quenoth Fighter,Quenoth Mystic")}
+        {VARIABLE extra_recruit "Quenoth Fighter,Quenoth Mystic,Quenoth Scout"}
+        {VARIABLE rnd_assistants ("Quenoth Fighter,Quenoth Mystic,Quenoth Scout")}
+        [set_variables]
+            name=extra_list
+            mode=replace
+            {VALUE2 type "Quenoth Fighter" cost 15}
+            {VALUE2 type "Quenoth Mystic" cost 15}
+            {VALUE2 type "Quenoth Scout" cost 15}
+        [/set_variables]
+    [/case]
+#enddef
