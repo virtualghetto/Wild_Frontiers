@@ -300,3 +300,21 @@ function wesnoth.wml_actions.get_recruit_list( cfg )
 											recruit_list = table.concat( recruit_list, "," ) } )
 	end
 end
+
+-- lifted from add-ons/Custom_Campaign/lua/wml-tags.lua
+function wesnoth.wml_actions.wf_sort_array ( cfg )
+	-- [cc_sort_array]
+			-- name=name of the array
+			-- first_key=to sort by
+			-- second_key=to sort by if first key is equal
+	-- [/cc_sort_array]
+	local tArray = helper.get_variable_array(cfg.name)
+	local function top_down_left_right(uFirstElem, uSecElem)
+		if uFirstElem[cfg.first_key] == uSecElem[cfg.first_key] then
+			return uFirstElem[cfg.second_key] < uSecElem[cfg.second_key]
+		end
+		return uFirstElem[cfg.first_key] < uSecElem[cfg.first_key]
+	end
+	table.sort(tArray, top_down_left_right)
+	helper.set_variable_array(cfg.name, tArray)
+end
