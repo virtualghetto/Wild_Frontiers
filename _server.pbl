@@ -1,0 +1,22 @@
+title="Cities of the Frontier"
+type="campaign"
+icon="scenery/windmill-11.png"
+version="0.6.1-6"
+author="esci"
+passphrase=
+description="Settle a new town north of the Great River. This campaign makes numerous changes to standard Wesnoth gameplay, adding new strategic elements and replayability. Focuses on gold management, strategic construction, and city defense. 
+ 
+That was originaly end of life on Wesnoth 1.11, but ported to 1.14 by request of Seivn. With help of gnombat, he told the name of it. It was originally Complete, playable, and winnable in its current state, but a few more features are planned.
+ 
+However currently it has some minor bugs. I might fix them in future or not.. It should be playable but you could let me know if there is a major bug that makes it unplayable and I might do something about it. 
+ 
+esci if you ever come back feel free to ask for password and it's all yours.
+ 
+Very interesting project if you like to build (ANL, A new land, Undead Empire, New Settlers, Civ)
+ 
+Playable from main Wesnoth menu, through the Campaigns. Single player only.
+"
+email=
+[feedback]
+        topic_id=36004
+[/feedback]
