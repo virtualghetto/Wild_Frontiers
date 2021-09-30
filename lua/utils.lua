@@ -318,3 +318,19 @@ function wesnoth.wml_actions.wf_sort_array ( cfg )
 	table.sort(tArray, top_down_left_right)
 	helper.set_variable_array(cfg.name, tArray)
 end
+
+function wesnoth.wml_actions.wf_gold(cfg)
+	local amount = tonumber(cfg.amount) or wml.error "[gold] missing required amount= attribute."
+	local sides = wesnoth.sides.find(cfg)
+
+	local set_amount = cfg.set_amount
+	if (set_amount == nil) then set_amount = false end
+
+        for index, team in ipairs(sides) do
+		if set_amount and team.gold < 0 then
+			team.gold = amount
+		else
+			team.gold = team.gold + amount
+		end
+	end
+end
