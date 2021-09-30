@@ -320,6 +320,25 @@ function wesnoth.wml_actions.wf_sort_array ( cfg )
 end
 
 function wesnoth.wml_actions.wf_gold(cfg)
+-- if wesnoth version >= 1.15.0
+if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
+
+        local amount = tonumber(cfg.amount) or
+                wml.error "[gold] missing required amount= attribute."
+        local sides = wesnoth.sides.find(cfg)
+        local set_amount = cfg.set_amount
+        if (set_amount == nil) then set_amount = false end
+        for index, team in ipairs(sides) do
+                if set_amount and team.gold < 0 then
+                        team.gold = amount
+                else
+                        team.gold = team.gold + amount
+                end
+        end
+
+-- else wesnoth version < 1.15.0
+else
+
         local amount = tonumber(cfg.amount) or
                 helper.wml_error "[gold] missing required amount= attribute."
         local sides = wesnoth.get_sides(cfg)
@@ -332,4 +351,6 @@ function wesnoth.wml_actions.wf_gold(cfg)
                         team.gold = team.gold + amount
                 end
         end
+end
+-- end wesnoth version
 end
