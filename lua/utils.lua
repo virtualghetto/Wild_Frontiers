@@ -324,12 +324,12 @@ function wesnoth.wml_actions.wf_gold(cfg)
 if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 
         local amount = tonumber(cfg.amount) or
-                wml.error "[gold] missing required amount= attribute."
+                wml.error "[wf_gold] missing required amount= attribute."
         local sides = wesnoth.sides.find(cfg)
-        local set_amount = cfg.set_amount
-        if (set_amount == nil) then set_amount = false end
+        local reset = cfg.reset
+        if (reset == nil) then reset = false end
         for index, team in ipairs(sides) do
-                if set_amount and team.gold < 0 then
+                if reset and team.gold < 0 then
                         team.gold = amount
                 else
                         team.gold = team.gold + amount
@@ -340,12 +340,12 @@ if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 else
 
         local amount = tonumber(cfg.amount) or
-                helper.wml_error "[gold] missing required amount= attribute."
+                helper.wml_error "[wf_gold] missing required amount= attribute."
         local sides = wesnoth.get_sides(cfg)
-        local set_amount = cfg.set_amount
-        if (set_amount == nil) then set_amount = false end
+        local reset = cfg.reset
+        if (reset == nil) then reset = false end
         for index, team in ipairs(sides) do
-                if set_amount and team.gold < 0 then
+                if reset and team.gold < 0 then
                         team.gold = amount
                 else
                         team.gold = team.gold + amount
