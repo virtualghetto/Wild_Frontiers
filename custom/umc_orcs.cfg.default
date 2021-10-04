@@ -1,5 +1,10 @@
 #textdomain wesnoth-Wild_Frontiers
 
+#### How to use:
+## Must rename umc.cfg.default to umc.cfg
+## Must rename umc_units.cfg.default to umc_units.cfg
+## Optional: Rename umc_orcs.cfg.default to spawn new units as raiding orcs
+
 #### UMC Orcs side 5
 
 #### Add UMC faction names. The names must not have spaces.

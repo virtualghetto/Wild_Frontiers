@@ -1,5 +1,10 @@
 #textdomain wesnoth-Wild_Frontiers
 
+#### How to use:
+## Must rename umc.cfg.default to umc.cfg
+## Must rename umc_units.cfg.default to umc_units.cfg
+## Optional: Rename umc_player.cfg.default to allow the player to recruit these new units
+
 #### UMC Player
 
 #### Allow the player to recruit these UMC units.

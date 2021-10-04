@@ -1,5 +1,15 @@
 #textdomain wesnoth-Wild_Frontiers
 
+#### How to use:
+## Must rename umc.cfg.default to umc.cfg
+## Must rename umc_units.cfg.default to umc_units.cfg
+## Optional: Rename umc_player.cfg.default to allow the player to recruit these new units
+## Optional: Rename umc_guardian.cfg.default to spawn new units as guardian animals
+## Optional: Rename umc_bandit.cfg.default to spawn new units as bandits
+## Optional: Rename umc_orcs.cfg.default to spawn new units as raiding orcs
+## Optional: Rename umc_necro.cfg.default to spawn new units as raiding undead
+## Optional: Rename umc_subscene.cfg.default to spawn new units in the sub missions
+
 #### Add UMC add-on units
 
 ### This is the path for what goes into [+units]
