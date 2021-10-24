@@ -5,6 +5,7 @@ local wml_actions = wesnoth.wml_actions
 local T = wml.tag
 
 function wml_actions.village_unit(cfg)
+        local done = 0
 -- if wesnoth version >= 1.15.0
 if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
 
@@ -14,7 +15,6 @@ if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
         local count = cfg.count or wml.error("[village_unit] missing required count= attribute.")
         local side = cfg.side or wml.error("[village_unit] missing required side= attribute.")
 
-        local done = 0
         for i=1,count do
                 local locs = wesnoth.map.find({T["not"] { T.filter {} } , T["and"] { terrain = '!,*^V*,W*^*,M*^*,Q*^*,X*^*,*^Q*,*^X*,*^P*' } , T["and"] { x = x, y = y, radius = 1 } , include_borders = false })
                 if #locs == 0 then locs = wesnoth.map.find({T["not"] { T.filter {} } , T["and"] { terrain = '!,*^V*,W*^*,M*^*,Q*^*,X*^*,*^Q*,*^X*,*^P*' } , T["and"] { x = x, y = y, radius = 2 } , include_borders = false }) end
@@ -39,7 +39,6 @@ else
 	local count = cfg.count or helper.wml_error("[village_unit] missing required count= attribute.")
 	local side = cfg.side or helper.wml_error("[village_unit] missing required side= attribute.")
 
-	local done = 0
 	for i=1,count do
 		local locs = wesnoth.get_locations({T["not"] { T.filter {} } , T["and"] { terrain = '!,*^V*,W*^*,M*^*,Q*^*,X*^*,*^Q*,*^X*,*^P*' } , T["and"] { x = x, y = y, radius = 1} , include_borders = false })
 		if #locs == 0 then locs = wesnoth.get_locations({T["not"] { T.filter {} } , T["and"] { terrain = '!,*^V*,W*^*,M*^*,Q*^*,X*^*,*^Q*,*^X*,*^P*' } , T["and"] { x = x, y = y, radius = 2 } , include_borders = false  }) end
