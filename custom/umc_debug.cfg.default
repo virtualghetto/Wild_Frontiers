@@ -73,37 +73,77 @@
 #### Diplomacy
 #[event]
 #    name=start
-#    {VARIABLE diplomacy.drakes_state 9}
-#    {VARIABLE diplomacy.drakes_mission 5}
-#    {VARIABLE diplomacy.drakes -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.drakes_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.drakes_state 9}
+#            {VARIABLE diplomacy.drakes_mission 5}
+#            {VARIABLE diplomacy.drakes -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.dunefolk_state 9}
-#    {VARIABLE diplomacy.dunefolk_mission 5}
-#    {VARIABLE diplomacy.dunefolk -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.dunefolk_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.dunefolk_state 9}
+#            {VARIABLE diplomacy.dunefolk_mission 5}
+#            {VARIABLE diplomacy.dunefolk -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.dwarves_state 9}
-#    {VARIABLE diplomacy.dwarves_mission 5}
-#    {VARIABLE diplomacy.dwarves -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.dwarves_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.dwarves_state 9}
+#            {VARIABLE diplomacy.dwarves_mission 5}
+#            {VARIABLE diplomacy.dwarves -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.elves_state 9}
-#    {VARIABLE diplomacy.elves_mission 5}
-#    {VARIABLE diplomacy.elves -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.elves_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.elves_state 9}
+#            {VARIABLE diplomacy.elves_mission 5}
+#            {VARIABLE diplomacy.elves -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.loyalists_state 9}
-#    {VARIABLE diplomacy.loyalists_mission 5}
-#    {VARIABLE diplomacy.loyalists -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.loyalists_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.loyalists_state 9}
+#            {VARIABLE diplomacy.loyalists_mission 5}
+#            {VARIABLE diplomacy.loyalists -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.orcs_state 9}
-#    {VARIABLE diplomacy.orcs_mission 5}
-#    {VARIABLE diplomacy.orcs -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.orcs_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.orcs_state 9}
+#            {VARIABLE diplomacy.orcs_mission 5}
+#            {VARIABLE diplomacy.orcs -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.outlaws_state 9}
-#    {VARIABLE diplomacy.outlaws_mission 5}
-#    {VARIABLE diplomacy.outlaws -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.outlaws_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.outlaws_state 9}
+#            {VARIABLE diplomacy.outlaws_mission 5}
+#            {VARIABLE diplomacy.outlaws -5}
+#        [/then]
+#    [/if]
 #
-#    {VARIABLE diplomacy.undead_state 9}
-#    {VARIABLE diplomacy.undead_mission 5}
-#    {VARIABLE diplomacy.undead -5}
+#    [if]
+#        {VARIABLE_CONDITIONAL diplomacy.undead_state less_than 9}
+#        [then]
+#            {VARIABLE diplomacy.undead_state 9}
+#            {VARIABLE diplomacy.undead_mission 5}
+#            {VARIABLE diplomacy.undead -5}
+#        [/then]
+#    [/if]
 #[/event]
 
 #### Halt spawning menu
