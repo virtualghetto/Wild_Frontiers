@@ -70,17 +70,21 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 	local other_unit = get_other_unit(cfg)
 
 	if other_unit and last_unit then
-		MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { frozen = true, moves = last_unit.moves, attacks_left = last_unit.attacks_left, resting = last_unit.resting })
-		AH.checked_stopunit_all(ai, last_unit)
+		while last_unit do
+			MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { frozen = true, moves = last_unit.moves, attacks_left = last_unit.attacks_left, resting = last_unit.resting })
+			AH.checked_stopunit_all(ai, last_unit)
+			last_unit = get_last_unit(cfg)
+		end
 		return
 	end
 
 	last_unit = get_last_unit_frozen(cfg)
-	if last_unit then
+	while last_unit do
 		last_unit.resting = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "resting" )
 		last_unit.attacks_left = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "attacks_left" )
 		last_unit.moves = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "moves" )
 		MAIUV.delete_mai_unit_variables(last_unit, cfg.ai_id)
+		last_unit = get_last_unit_frozen(cfg)
 	end
 end
 
