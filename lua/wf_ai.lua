@@ -51,3 +51,17 @@ function wesnoth.micro_ais.wf_goto(cfg)
 	}
     return required_keys, optional_keys, CA_parms
 end
+
+function wesnoth.micro_ais.wf_move_last(cfg)
+        if (cfg.action ~= 'delete') and (not cfg.id) and (not wml.get_child(cfg, "filter")) then
+                H.wml_error("WF Move Last [micro_ai] tag requires either id= key or [filter] tag")
+        end
+        local required_keys = { }
+        local optional_keys = { "id", "[filter]" }
+	local score = cfg.ca_score or 300000
+        local CA_parms = {
+                ai_id = 'mai_wf_move_last',
+                { ca_id = 'move', location = '~add-ons/Wild_Frontiers/ai/ca_wf_move_last.lua', score = score }
+        }
+    return required_keys, optional_keys, CA_parms
+end
