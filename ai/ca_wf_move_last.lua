@@ -44,12 +44,9 @@ local ca_wf_move_last = {}
 function ca_wf_move_last:evaluation(cfg, data, filter_own)
 	local score = cfg.ca_score or 300000
 
-	local last_unit_frozen = get_last_unit_frozen(cfg)
-	local last_unit = get_last_unit(cfg)
-
 	local other_unit = get_other_unit(cfg)
-
 	if not other_unit then
+		local last_unit_frozen = get_last_unit_frozen(cfg)
 		if last_unit_frozen then
 			return score
 		end
