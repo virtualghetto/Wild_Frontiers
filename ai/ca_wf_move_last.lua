@@ -45,6 +45,7 @@ function ca_wf_move_last:evaluation(cfg, data, filter_own)
 	local score = cfg.ca_score or 300000
 
 	local other_unit = get_other_unit(cfg)
+
 	if not other_unit then
 		local last_unit_frozen = get_last_unit_frozen(cfg)
 		if last_unit_frozen then
@@ -68,7 +69,23 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 
 	if other_unit and last_unit then
 		while last_unit do
-			MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { frozen = true, moves = last_unit.moves, attacks_left = last_unit.attacks_left, resting = last_unit.resting })
+			local last_x = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "last_x" ) or 0
+			local last_y = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "last_y" ) or 0
+			if last_x == 0 and last_y == 0 then
+				-- they start off false always.
+				last_unit.resting = false
+			else
+				if last_unit.x == last_x and last_unit.y == last_y then
+					last_unit.resting = true
+				else
+					last_unit.resting = false
+				end
+			end
+			if last_unit.attacks_left == 0 then
+				last_unit.resting = false
+			end
+			MAIUV.delete_mai_unit_variables(last_unit, cfg.ai_id)
+			MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { frozen = true, moves = last_unit.moves, attacks_left = last_unit.attacks_left, resting = last_unit.resting, last_x = last_unit.x, last_y = last_unit.y })
 			AH.checked_stopunit_all(ai, last_unit)
 			last_unit = get_last_unit(cfg)
 		end
@@ -81,8 +98,24 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 		last_unit.attacks_left = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "attacks_left" )
 		last_unit.moves = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "moves" )
 		MAIUV.delete_mai_unit_variables(last_unit, cfg.ai_id)
+		MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { last_x = last_unit.x, last_y = last_unit.y })
 		last_unit = get_last_unit_frozen(cfg)
 	end
 end
+
+-- force_gamestate_change by mattsc
+--function utils.force_gamestate_change(ai)
+--    -- Can be done using any unit of the AI side; works even if the unit already has 0 moves
+--    local unit = wesnoth.units.find_on_map { side = wesnoth.current.side }[1]
+--    local cfg_reset_moves = { id = unit.id, moves = unit.moves }
+--    ai.stopunit_moves(unit)
+--    wesnoth.sync.invoke_command('reset_moves', cfg_reset_moves)
+--end
+
+-- reset_moves by mattsc
+--function wesnoth.custom_synced_commands.reset_moves(cfg)
+--    local unit = wesnoth.units.find_on_map { id = cfg.id }[1]
+--    unit.moves = cfg.moves
+--end
 
 return ca_wf_move_last
