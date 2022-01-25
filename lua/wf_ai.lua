@@ -65,3 +65,19 @@ function wesnoth.micro_ais.wf_move_last(cfg)
         }
     return required_keys, optional_keys, CA_parms
 end
+
+-- force_gamestate_change by mattsc
+--local utils = wesnoth.require "wml-utils"
+--function utils.force_gamestate_change(ai)
+--    -- Can be done using any unit of the AI side; works even if the unit already has 0 moves
+--    local unit = wesnoth.get_units { side = wesnoth.current.side }[1]
+--    local cfg_reset_moves = { id = unit.id, moves = unit.moves }
+--    ai.stopunit_moves(unit)
+--    wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
+--end
+
+-- reset_moves by mattsc
+--function wesnoth.custom_synced_commands.reset_moves(cfg)
+--    local unit = wesnoth.get_units { id = cfg.id }[1]
+--    unit.moves = cfg.moves
+--end

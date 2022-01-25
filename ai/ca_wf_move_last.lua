@@ -1,3 +1,4 @@
+--local utils = wesnoth.require "wml-utils"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
 local MAIUV = wesnoth.require "ai/micro_ais/micro_ai_unit_variables.lua"
 
@@ -101,6 +102,7 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 		MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { last_x = last_unit.x, last_y = last_unit.y })
 		last_unit = get_last_unit_frozen(cfg)
 	end
+	--utils.force_gamestate_change(ai)
 end
 
 -- force_gamestate_change by mattsc
