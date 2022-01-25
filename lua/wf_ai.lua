@@ -1,5 +1,40 @@
 local H = wesnoth.require "helper"
 
+-- force_gamestate_change 1.14 by mattsc
+local utils = wesnoth.require "wml-utils"
+local AH = wesnoth.require "ai/lua/ai_helper.lua"
+function utils.force_gamestate_change(ai)
+	-- Can be done using any unit of the AI side; works even if the unit already has 0 moves
+	--local unit = wesnoth.get_units { side = wesnoth.current.side }[1]
+	local unit = AH.get_units_with_moves { side = wesnoth.current.side }[1]
+	local cfg_reset_moves = { id = unit.id, moves = unit.moves, resting = unit.resting, attacks_left = unit.attacks_left }
+	ai.stopunit_moves(unit)
+	wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
+end
+
+-- reset_moves 1.14 by mattsc
+function wesnoth.custom_synced_commands.reset_moves(cfg)
+	local unit = wesnoth.get_units { id = cfg.id }[1]
+	unit.resting = cfg.resting
+	unit.attacks_left = cfg.attacks_left
+	unit.moves = cfg.moves
+end
+
+-- force_gamestate_change 1.16 by mattsc
+--function utils.force_gamestate_change(ai)
+--	-- Can be done using any unit of the AI side; works even if the unit already has 0 moves
+--	local unit = wesnoth.units.find_on_map { side = wesnoth.current.side }[1]
+--	local cfg_reset_moves = { id = unit.id, moves = unit.moves }
+--	ai.stopunit_moves(unit)
+--	wesnoth.sync.invoke_command('reset_moves', cfg_reset_moves)
+--end
+
+-- reset_moves 1.16 by mattsc
+--function wesnoth.custom_synced_commands.reset_moves(cfg)
+--	local unit = wesnoth.units.find_on_map { id = cfg.id }[1]
+--	unit.moves = cfg.moves
+--end
+
 function wesnoth.micro_ais.wf_zone_guardian(cfg)
 	if (cfg.action ~= 'delete') and (not cfg.id) and (not wml.get_child(cfg, "filter")) then
 		H.wml_error("WF Zone Guardian [micro_ai] tag requires either id= key or [filter] tag")
@@ -65,19 +100,3 @@ function wesnoth.micro_ais.wf_move_last(cfg)
         }
     return required_keys, optional_keys, CA_parms
 end
-
--- force_gamestate_change by mattsc
---local utils = wesnoth.require "wml-utils"
---function utils.force_gamestate_change(ai)
---    -- Can be done using any unit of the AI side; works even if the unit already has 0 moves
---    local unit = wesnoth.get_units { side = wesnoth.current.side }[1]
---    local cfg_reset_moves = { id = unit.id, moves = unit.moves }
---    ai.stopunit_moves(unit)
---    wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
---end
-
--- reset_moves by mattsc
---function wesnoth.custom_synced_commands.reset_moves(cfg)
---    local unit = wesnoth.get_units { id = cfg.id }[1]
---    unit.moves = cfg.moves
---end
