@@ -1,14 +1,14 @@
 local H = wesnoth.require "helper"
 
 -- force_gamestate_change 1.14 by mattsc
-local utils = wesnoth.require "wml-utils"
 local AH = wesnoth.require "ai/lua/ai_helper.lua"
+local utils = wesnoth.require "wml-utils"
 function utils.force_gamestate_change(ai)
-	-- Can be done using any unit of the AI side; works even if the unit already has 0 moves
+	-- Can be done using any unit of the AI side with moves
 	--local unit = wesnoth.get_units { side = wesnoth.current.side }[1]
 	local unit = AH.get_units_with_moves { side = wesnoth.current.side }[1]
 	local cfg_reset_moves = { id = unit.id, moves = unit.moves, resting = unit.resting, attacks_left = unit.attacks_left }
-	ai.stopunit_moves(unit)
+	ai.stopunit_all(unit)
 	wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
 end
 

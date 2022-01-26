@@ -54,16 +54,16 @@ function ca_wf_move_last:evaluation(cfg, data, filter_own)
 
 	local other_unit = get_other_unit(cfg)
 
-	if not other_unit then
+	if other_unit then
+		local last_unit = get_last_unit(cfg)
+		if last_unit then
+			return score
+		end
+	else
 		local last_unit_frozen = get_last_unit_frozen(cfg)
 		if last_unit_frozen then
 			return score
 		end
-	end
-
-	local last_unit = get_last_unit(cfg)
-	if last_unit then
-		return score
 	end
 
 	return 0
@@ -72,10 +72,11 @@ end
 -- params for exec_parms (ai, cfg, self)
 function ca_wf_move_last:execution(cfg, data, filter_own)
 
-	local last_unit = get_last_unit(cfg)
 	local other_unit = get_other_unit(cfg)
+	local last_unit = nil
 
-	if other_unit and last_unit then
+	if other_unit then
+		last_unit = get_last_unit(cfg)
 		while last_unit do
 			local is_resting = false
 			local last_x = MAIUV.get_mai_unit_variables(last_unit, cfg.ai_id, "last_x" ) or 0
@@ -97,7 +98,8 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 			MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { frozen = true, moves = last_unit.moves, attacks_left = last_unit.attacks_left, resting = is_resting, last_x = last_unit.x, last_y = last_unit.y })
 			--ai.stopunit_moves(last_unit)
 			AH.checked_stopunit_all(ai, last_unit)
-			last_unit = get_last_unit(cfg)
+			last_unit = nil
+			--last_unit = get_last_unit(cfg)
 		end
 		return
 	end
@@ -112,9 +114,10 @@ function ca_wf_move_last:execution(cfg, data, filter_own)
 		wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
 		MAIUV.delete_mai_unit_variables(last_unit, cfg.ai_id)
 		MAIUV.set_mai_unit_variables(last_unit, cfg.ai_id, { last_x = last_unit.x, last_y = last_unit.y })
-		last_unit = get_last_unit_frozen(cfg)
+		last_unit = nil
+		--last_unit = get_last_unit_frozen(cfg)
 	end
-	--utils.force_gamestate_change(ai)
+	utils.force_gamestate_change(ai)
 end
 
 return ca_wf_move_last
