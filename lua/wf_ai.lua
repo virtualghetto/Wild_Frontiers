@@ -9,7 +9,14 @@ function utils.force_gamestate_change(ai)
 	local unit = AH.get_units_with_moves { side = wesnoth.current.side }[1]
 	local cfg_reset_moves = { id = unit.id, moves = unit.moves, resting = unit.resting, attacks_left = unit.attacks_left }
 	ai.stopunit_all(unit)
+-- if version >= 1.15.0
+if wesnoth.compare_versions(wesnoth.game_config.version, ">=", "1.15.0") then
+	wesnoth.sync.invoke_command('reset_moves', cfg_reset_moves)
+-- else version < 1.15.0
+else
 	wesnoth.invoke_synced_command('reset_moves', cfg_reset_moves)
+end
+-- end version
 end
 
 -- reset_moves 1.14 by mattsc
